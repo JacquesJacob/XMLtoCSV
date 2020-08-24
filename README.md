@@ -1,7 +1,9 @@
 # XMLtoCSV
-for List Screening Tool reports
+converter for List Screening Reports
 
 Python 3.7
+
+Libs:
 
 Tkinter
 
@@ -10,5 +12,3 @@ Numpy
 Pandas
 
 BeautifulSoup
-
-Can be compiled as an one file .EXE tool.
