@@ -36,6 +36,9 @@ def convert_data_alert():
         csvwriter = csv.writer(f)
         bar()
         entity_record = "Match Number"
+        date_created = "Date Created"
+        alert_id = "Alert ID"
+        assigned_name = "Assigned To"
         search_name = "Batch Run Id"
         search_entity = "Full Name Search"
         search_origin = "Entity Type"
@@ -46,7 +49,7 @@ def convert_data_alert():
         entity_name_match = "Best Name Score"
         bestname_score = "Reason"
         auto_false_positive = "Auto False Positive"
-        head = [entity_record, search_name, search_entity, search_origin, search_listname, alertstatus, match_resultid,
+        head = [entity_record, date_created, alert_id, assigned_name, search_name, search_entity, search_origin, search_listname, alertstatus, match_resultid,
                 match_number, entity_name_match, bestname_score, auto_false_positive]
         csvwriter.writerow(head)
 
@@ -57,6 +60,9 @@ def convert_data_alert():
         numero = 0
         for Lista in Indice:
             numero = numero + 1
+            datecreated = Lista.find('DateCreated').text
+            alertid = Lista.find('ResultRecordId').text
+            assignedname = Lista.find('AssignedName').text
             batchrun = Lista.find('BatchRunId').text
             namefull = Lista.find('Name').find('Full').text
             entitytype = Lista.find('InputEntity').find('EntityType').text
@@ -71,7 +77,7 @@ def convert_data_alert():
                 reason_match_result = link.find("Reason").text
                 false_positive = link.find("IsAutomaticFalsePositive").text
 
-                row = [numero, batchrun, namefull, entitytype, pds, origin, alertstate, entity_name_match_result,
+                row = [numero, datecreated, alertid, assignedname, batchrun, namefull, entitytype, pds, origin, alertstate, entity_name_match_result,
                        bestname_score_result, reason_match_result, false_positive]
                 csvwriter.writerow(row)
 
@@ -188,13 +194,13 @@ def clear_fields():
 
 def about_info():
     messagebox.showinfo("Info", "Developed by: Jacques Jacob\n"
-                                "Contact: jacques.jacob@gmail.com\n"
-                                "Release Date: 06/01/2020\n"
-                                "Version 1.0")
+                                "E-mail: jacques.jacob@gmail.com\n"
+                                "Release Date: 11/11/2021\n"
+                                "Version b1.1")
 
 
 root = tk.Tk()
-root.title("XML to CSV - Custom Conversion File")
+root.title("XML to CSV - Bridger Custom Conversion File")
 
 
 def bar():
@@ -284,7 +290,7 @@ xls = IntVar()
 checkbut = Checkbutton(root, text="XLS", onvalue=1, offvalue=0, variable=xls)
 checkbut.place(relx=0.87, rely=0.45)
 
-lexisnexisimage = PhotoImage(file=r"image.PNG")
+lexisnexisimage = PhotoImage(file=r"ln_small.PNG")
 about_button = tk.Button(root, text="About ", image=lexisnexisimage, compound=LEFT, command=lambda: about_info())
 about_button.place(relx=0.01, rely=0.69)
 
